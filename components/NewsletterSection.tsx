@@ -1,14 +1,47 @@
 "use client";
 import React, { useState } from "react";
+const validateEmail = (email: string) => {
+  // Regex robuste pour l'email
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  return re.test(email);
+};
 
 const NewsletterSection: React.FC = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setEmail("");
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    if (!validateEmail(email)) {
+      setError("Veuillez entrer une adresse e-mail valide.");
+      return;
+    }
+
+    setLoading(true);
+    const response = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    setLoading(false);
+    if (response.ok) {
+      setSuccess("Inscription réussie !");
+      setEmail("");
+      setSent(true);
+    } else {
+      const data = await response.json();
+      setError(
+        data.message || "Erreur lors de l'inscription. Veuillez réessayer."
+      );
+    }
+    
   };
 
   return (
@@ -31,10 +64,16 @@ const NewsletterSection: React.FC = () => {
           />
           <button
             type="submit"
+            disabled={loading}
             className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
           >
-            Subscribe
+            {loading? "Sending..." : "Subscribe"}
           </button>
+          {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
+      {success && <p className="text-green-600 mt-2 text-center">{success}</p>}
+      <p className="text-xs text-gray-500 mt-2 text-center">
+        Nous respectons votre vie privée. Aucun spam.
+      </p>
         </form>
       )}
     </section>
