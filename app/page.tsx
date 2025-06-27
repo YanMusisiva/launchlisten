@@ -7,42 +7,42 @@ const links = [
   {
     title: "Saudi Arabia",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70436",
-    image: "videos.jpg",
+    image: "saudiarabia.png",
     description:"دخل رقم هاتفك الآن لبدء التنزيل",
     about:"حمّل أحدث المحتوى"
   },
   {
     title: "Germany",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70105",
-    image: "games.jpg",
+    image: "germany.png",
     description:"Geben Sie jetzt Ihre Kreditkartendaten ein, um loszulegen.",
     about:"Testen Sie jetzt Ihre Damenunterwäsche!"
   },
   {
     title: "United Kingdom",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70099",
-    image: "games.jpg",
+    image: "unitedkingdom.png",
     description:"Enter your credit card information now to get started.",
     about:"Start your Woman Underwear Trial Now!"
   },
   {
     title: "Denmark",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69752",
-    image: "games.jpg",
+    image: "denmark.png",
     description:"Indtast dine kreditkortoplysninger nu for at komme i gang.",
     about:"Start din prøveperiode på dameundertøj nu!"
   },
   {
     title: "Italy",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69067",
-    image: "games.jpg",
+    image: "italy.png",
     description:"Installa l'app e registrati nell'app.",
     about:"Registra un account SisalFunClub!"
   },
   {
     title: "New Zealand",
     url: "https://tundrafile.com/show.php?l=0&u=2413362&id=52956",
-    image: "games.jpg",
+    image: "newzealand.png",
     description:"Enter your information now for a chance to win.",
     about:"Claim Your $100 Gillette Heated Razor!"
   },
@@ -67,6 +67,12 @@ const LinksSection: React.FC = () => (
             />
             <div className="p-4 text-center">
               <h3 className="text-lg font-semibold text-blue-950">{link.title}</h3>
+            </div>
+            <div className="p-4 text-center">
+              <h3 className="text-lg text-blue-950">{link.description}</h3>
+            </div>
+            <div className="p-4 text-center">
+              <h3 className="text-lg font-semibold text-blue-950">{link.about}</h3>
             </div>
           </a>
         </div>
