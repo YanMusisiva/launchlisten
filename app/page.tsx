@@ -5,20 +5,48 @@ import NewsletterSection from "../components/NewsletterSection";
 
 const links = [
   {
-    title: "Videá",
-    url: "https://example.com/videos",
+    title: "Saudi Arabia",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70436",
     image: "videos.jpg",
+    description:"دخل رقم هاتفك الآن لبدء التنزيل",
+    about:"حمّل أحدث المحتوى"
   },
   {
-    title: "Hry",
-    url: "https://example.com/games",
+    title: "Germany",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70105",
     image: "games.jpg",
+    description:"Geben Sie jetzt Ihre Kreditkartendaten ein, um loszulegen.",
+    about:"Testen Sie jetzt Ihre Damenunterwäsche!"
   },
   {
-    title: "Darčeky",
-    url: "https://example.com/gifts",
-    image: "/images/gifts.png",
+    title: "United Kingdom",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70099",
+    image: "games.jpg",
+    description:"Enter your credit card information now to get started.",
+    about:"Start your Woman Underwear Trial Now!"
   },
+  {
+    title: "Denmark",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69752",
+    image: "games.jpg",
+    description:"Indtast dine kreditkortoplysninger nu for at komme i gang.",
+    about:"Start din prøveperiode på dameundertøj nu!"
+  },
+  {
+    title: "Italy",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69067",
+    image: "games.jpg",
+    description:"Installa l'app e registrati nell'app.",
+    about:"Registra un account SisalFunClub!"
+  },
+  {
+    title: "New Zealand",
+    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=52956",
+    image: "games.jpg",
+    description:"Enter your information now for a chance to win.",
+    about:"Claim Your $100 Gillette Heated Razor!"
+  },
+  
   // Ajoutez d'autres liens si besoin
 ];
 
