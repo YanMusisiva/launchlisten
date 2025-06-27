@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vitajte na našej stránke",
-  description: "Objavte úžasné videá, hry a darčeky!",
+  title: "Findcountrylinks",
+  description: "Liens pour trouver des cadeaux par pays",
 };
 
 export default function RootLayout({

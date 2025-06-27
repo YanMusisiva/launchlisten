@@ -13,12 +13,12 @@ const NewsletterSection: React.FC = () => {
 
   return (
     <section className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl shadow-lg p-8 mt-12 mb-8 text-center break-inside-avoid">
-      <h2 className="text-2xl font-bold mb-4 text-blue-600">Prihláste sa na odber noviniek</h2>
+      <h2 className="text-2xl font-bold mb-4 text-blue-600">Get updated Now subscribe</h2>
       <p className="mb-6 text-black">
-        Získajte informácie o najnovších videách, hrách a darčekoch priamo do vašej schránky!
+        Get the latest giveaway links and fun content from your country delivered to your inbox.
       </p>
       {sent ? (
-        <div className="text-green-600 font-semibold">Ďakujeme za prihlásenie!</div>
+        <div className="text-green-600 font-semibold">Thank you for signing up!</div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <input
@@ -33,7 +33,7 @@ const NewsletterSection: React.FC = () => {
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
           >
-            Prihlásiť sa
+            Subscribe
           </button>
         </form>
       )}

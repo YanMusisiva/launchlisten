@@ -52,7 +52,7 @@ const links = [
 
 const LinksSection: React.FC = () => (
   <section id="links" className="py-8">
-    <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Naše odkazy</h2>
+    <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Featured links</h2>
     <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
       {links.map((link, idx) => (
         <div
@@ -86,27 +86,24 @@ export default function Home() {
     <div className="bg-gray-100 min-h-screen">
       {/* Hero */}
       <div className="bg-gradient-to-r from-blue-400 to-purple-500 py-16 text-white text-center">
-        <h1 className="text-4xl font-bold mb-4">Vitajte na našej stránke!</h1>
-        <p className="text-xl mb-6">Objavte úžasné videá, hry a darčeky!</p>
+        <h1 className="text-4xl font-bold mb-4">Welcome to your gateway for country-specific links and updates!</h1>
+        <p className="text-xl mb-6">Discover amazing links for fun, free games, and exciting giveaways! Stay tuned and keep coming back for more fresh, entertaining content made just for you.</p>
         <a
           href="#links"
           className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-full shadow hover:bg-blue-50 transition"
         >
-          Začnite teraz
+          Start exploring now
         </a>
       </div>
 
       {/* Présentation */}
       <section className="max-w-2xl mx-auto py-10 px-4">
-        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">O našej stránke</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">About our website</h2>
         <p className="mb-2 text-center text-black ">
-          Vitajte na našej stránke, kde nájdete najnovšie videá, hry a darčeky!
-          Preskúmajte naše odkazy a objavte zábavu, ktorú sme pre vás pripravili.
+          Welcome to our website, your destination for free giveaways and exciting prizes, fun games, and the latest videos! Explore our links and discover the fun and free rewards we've prepared just for you.
         </p>
         <p className="text-center text-black">
-          Naša stránka je navrhnutá tak, aby ste mali jednoduchý prístup k obsahu,
-          ktorý vás zaujíma. Nezabudnite sa pozrieť na naše sekcie s videami,
-          hrami a darčekmi!
+         Our site is designed to help you discover links you might have missed without us.
         </p>
       </section>
 
