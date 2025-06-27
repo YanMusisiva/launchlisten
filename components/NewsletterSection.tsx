@@ -72,7 +72,7 @@ const NewsletterSection: React.FC = () => {
           {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
       {success && <p className="text-green-600 mt-2 text-center">{success}</p>}
       <p className="text-xs text-gray-500 mt-2 text-center">
-        Nous respectons votre vie privée. Aucun spam.
+        We respect your privacy. No spam.
       </p>
         </form>
       )}
