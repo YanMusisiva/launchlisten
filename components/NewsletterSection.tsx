@@ -57,8 +57,8 @@ const NewsletterSection: React.FC = () => {
           <input
             type="email"
             required
-            placeholder="Váš e-mail"
-            className="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto"
+            placeholder="Your email address"
+            className="px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-auto text-black text-semibold"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />

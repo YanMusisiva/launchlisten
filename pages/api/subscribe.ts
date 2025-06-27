@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await newEmail.save();
       } catch (err: unknown) {
         // Gestion du cas où deux requêtes arrivent en même temps
-        if (typeof err === "object" && err !== null && "code" in err) {
+        if (typeof err === "object" && err !== null && "code" in err ) {
           return res
             .status(409)
             .json({ message: "Reessayez." });

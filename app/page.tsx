@@ -138,7 +138,7 @@ export default function Home() {
       <section className="max-w-2xl mx-auto py-10 px-4">
         <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">About our website</h2>
         <p className="mb-2 text-center text-black ">
-          Welcome to our website, your destination for free giveaways and exciting prizes, fun games, and the latest videos! Explore our links and discover the fun and free rewards we've prepared just for you.
+          Welcome to our website, your destination for free giveaways and exciting prizes, fun games, and the latest videos! Explore our links and discover the fun and free rewards we&apos;ve prepared just for you.
         </p>
         <p className="text-center text-black">
          Our site is designed to help you discover links you might have missed without us.
