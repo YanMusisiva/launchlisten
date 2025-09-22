@@ -1,157 +1,249 @@
 "use client";
+import React, { useState } from "react";
+import {
+  ArrowRight,
+  Play,
+  Users,
+  User,
+  Mail,
+  CheckCircle,
+  Star,
+  Sparkles,
+} from "lucide-react";
 
-import React from "react";
-import NewsletterSection from "../components/NewsletterSection";
-import Image from "next/image";
-import { useState } from "react";
+const LaunchSite = () => {
+  const [currentPage, setCurrentPage] = useState("email");
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-const links = [
-  {
-    title: "Saudi Arabia",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70436",
-    image: "/saudiarabia.png",
-    description:"دخل رقم هاتفك الآن لبدء التنزيل",
-    about:"حمّل أحدث المحتوى"
-  },
- 
-  {
-    title: "Germany",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70105",
-    image: "/germany.png",
-    description:"Geben Sie jetzt Ihre Kreditkartendaten ein, um loszulegen.",
-    about:"Testen Sie jetzt Ihre Damenunterwäsche!"
-  },
-  {
-    title: "United Kingdom",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=70099",
-    image: "/unitedkingdom.png",
-    description:"Enter your credit card information now to get started.",
-    about:"Start your Woman Underwear Trial Now!"
-  },
-  {
-    title: "Denmark",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69752",
-    image: "/denmark.png",
-    description:"Indtast dine kreditkortoplysninger nu for at komme i gang.",
-    about:"Start din prøveperiode på dameundertøj nu!"
-  },
-  {
-    title: "Italy",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=69067",
-    image: "/italy.png",
-    description:"Installa l'app e registrati nell'app.",
-    about:"Registra un account SisalFunClub!"
-  },
-  {
-    title: "New Zealand",
-    url: "https://tundrafile.com/show.php?l=0&u=2413362&id=52956",
-    image: "/newzealand.png",
-    description:"Enter your information now for a chance to win.",
-    about:"Claim Your $100 Gillette Heated Razor!"
-  },
-  
-  // Ajoutez d'autres liens si besoin
-];
+  const handleEmailSubmit = async () => {
+    if (!email) return;
 
+    setIsLoading(true);
+    // Simulation d'ajout à la newsletter
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setIsSubmitted(true);
+    setIsLoading(false);
 
+    // Redirection vers la page vidéo après 2 secondes
+    setTimeout(() => {
+      setCurrentPage("video");
+    }, 2000);
+  };
 
-const LINKS_PER_PAGE = 10;
+  if (currentPage === "email") {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-800 via-blue-900 to-indigo-900 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse delay-1000"></div>
+        <div className="absolute -bottom-32 left-20 w-80 h-80 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse delay-2000"></div>
 
-const LinksSection: React.FC = () => {
-  const [page, setPage] = useState(0);
+        {/* Floating elements */}
+        <div className="absolute top-32 right-1/4 animate-bounce delay-1000">
+          <Sparkles className="text-cyan-300 w-8 h-8" />
+        </div>
+        <div className="absolute bottom-1/4 left-1/4 animate-bounce delay-2000">
+          <Star className="text-blue-300 w-6 h-6" />
+        </div>
 
-  const start = page * LINKS_PER_PAGE;
-  const end = start + LINKS_PER_PAGE;
-  const paginatedLinks = links.slice(start, end);
+        <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
+          <div className="max-w-2xl mx-auto text-center">
+            {!isSubmitted ? (
+              <>
+                {/* Header */}
+                <div className="mb-12">
+                  <h1 className="text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 mb-6 leading-tight">
+                    Transformez
+                  </h1>
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+                    Votre Passion en
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300">
+                      {" "}
+                      Succès
+                    </span>
+                  </h2>
+                  <p className="text-xl text-gray-200 max-w-lg mx-auto leading-relaxed">
+                    Découvrez les secrets des experts pour créer une carrière
+                    extraordinaire dans votre domaine de passion
+                  </p>
+                </div>
 
-  const hasNext = end < links.length;
-  const hasPrev = page > 0;
+                {/* Email Form */}
+                <div className="space-y-6 mb-12">
+                  <div className="relative max-w-md mx-auto">
+                    <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Votre adresse email"
+                      className="w-full pl-12 pr-4 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300 text-lg"
+                      required
+                    />
+                  </div>
 
-  return (
-    <section id="links" className="py-8">
-      <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Featured links</h2>
-      <div className="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
-        {paginatedLinks.map((link, idx) => (
-          <div
-            key={idx}
-            className="break-inside-avoid rounded-xl shadow-lg bg-white mb-4 hover:scale-105 transition-transform"
-          >
-            <a href={link.url} target="_blank" rel="noopener noreferrer" className="block">
-              <Image
-                width={500}
-                height={300}
-                src={link.image}
-                alt={link.title}
-                className="w-full h-48 object-cover rounded-t-xl"
-              />
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-blue-950">{link.title}</h3>
+                  <button
+                    onClick={handleEmailSubmit}
+                    disabled={isLoading}
+                    className="group bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-10 py-4 rounded-2xl font-bold text-xl shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:transform-none flex items-center justify-center mx-auto min-w-64"
+                  >
+                    {isLoading ? (
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                    ) : (
+                      <>
+                        Accéder Maintenant
+                        <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Trust indicators */}
+                <div className="flex items-center justify-center space-x-8 text-gray-300">
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-sm">100% Gratuit</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-sm">Sans Spam</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-sm">Désabonnement Facile</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-20">
+                <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
+                <h2 className="text-4xl font-bold text-white mb-4">
+                  Parfait !
+                </h2>
+                <p className="text-xl text-gray-200 mb-8">
+                  Vous êtes maintenant inscrit(e) à notre newsletter exclusive
+                </p>
+                <div className="animate-pulse text-pink-300">
+                  Redirection en cours...
+                </div>
               </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg text-blue-950">{link.description}</h3>
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-blue-950">{link.about}</h3>
-              </div>
-            </a>
+            )}
           </div>
-        ))}
+        </div>
       </div>
-      <div className="flex justify-center gap-4 mt-6">
-        {hasPrev && (
-          <button
-            onClick={() => setPage(page - 1)}
-            className="px-4 py-2 bg-blue-200 rounded hover:bg-blue-300 font-semibold"
-          >
-            Précédent
-          </button>
-        )}
-        {hasNext && (
-          <button
-            onClick={() => setPage(page + 1)}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold"
-          >
-            Voir plus
-          </button>
-        )}
-      </div>
-    </section>
-  );
-};
+    );
+  }
 
-export default function Home() {
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-400 to-purple-500 py-16 text-white text-center">
-        <h1 className="text-4xl font-bold mb-4 mx-2 text-center">Welcome to your gateway <br />for country-specific links and updates!</h1>
-        <p className="text-xl mb-6 mx-2 text-center">Discover amazing links for fun, exciting prizes,<br/> free games and exciting giveaways! Stay tuned and keep coming back for more fresh, entertaining content made just for you.</p>
-        <a
-          href="#links"
-          className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-full shadow hover:bg-blue-50 transition"
-        >
-          Start exploring now
-        </a>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
 
-      {/* Présentation */}
-      <section className="max-w-2xl mx-auto py-10 px-4">
-        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">About our website</h2>
-        <p className="mb-2 text-center text-black ">
-          Welcome to our website, your destination for free giveaways and exciting prizes, fun games, and the latest videos! Explore our links and discover the fun and free rewards we&apos;ve prepared just for you.
-        </p>
-        <p className="text-center text-black">
-         Our site is designed to help you discover links you might have missed without us.
-        </p>
-      </section>
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Header */}
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
+              Votre Formation Vous Attend
+            </h1>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Regardez cette vidéo exclusive et choisissez votre parcours vers
+              le succès
+            </p>
+          </div>
 
-      {/* Liens façon Pinterest */}
-      <LinksSection />
+          {/* Video Container */}
+          <div className="mb-12 relative group">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-1 rounded-3xl shadow-2xl">
+              <div className="bg-black rounded-3xl overflow-hidden">
+                <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
+                  <Play className="w-20 h-20 text-white opacity-80 group-hover:opacity-100 transition-opacity cursor-pointer" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <p className="absolute bottom-4 left-4 text-white text-sm opacity-75">
+                    Cliquez pour voir votre formation exclusive
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      {/* Newsletter */}
-      <div className="max-w-xl mx-auto px-4">
-        <NewsletterSection />
+          {/* CTA Buttons */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Formation Groupe */}
+            <div className="group relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+              <div className="relative bg-gradient-to-br from-blue-500 to-indigo-600 p-8 rounded-3xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+                <Users className="w-12 h-12 text-white mb-4 mx-auto" />
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Formation en Groupe
+                </h3>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Rejoignez notre communauté d'apprenants motivés et bénéficiez
+                  de l'entraide collective pour maximiser votre réussite.
+                </p>
+                <div className="text-4xl font-extrabold text-white mb-6">
+                  17<span className="text-2xl">$</span>
+                </div>
+                <button className="w-full bg-white text-indigo-600 font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg">
+                  Rejoindre le Groupe
+                </button>
+                <div className="mt-4 flex items-center justify-center space-x-4 text-blue-100 text-sm">
+                  <span>✓ Accès à vie</span>
+                  <span>✓ Communauté</span>
+                  <span>✓ Support</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Formation Personnelle */}
+            <div className="group relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+              <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 p-8 rounded-3xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
+                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  POPULAIRE
+                </div>
+                <User className="w-12 h-12 text-white mb-4 mx-auto" />
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Formation Personnelle
+                </h3>
+                <p className="text-emerald-100 mb-6 leading-relaxed">
+                  Bénéficiez d'un accompagnement personnalisé et sur-mesure pour
+                  atteindre vos objectifs plus rapidement.
+                </p>
+                <div className="text-4xl font-extrabold text-white mb-2">
+                  Sur Devis
+                </div>
+                <div className="text-emerald-100 text-sm mb-6">
+                  Prix selon vos besoins
+                </div>
+                <button className="w-full bg-white text-teal-600 font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg">
+                  Formation Personnelle
+                </button>
+                <div className="mt-4 flex items-center justify-center space-x-4 text-emerald-100 text-sm">
+                  <span>✓ 1-on-1</span>
+                  <span>✓ Personnalisé</span>
+                  <span>✓ Priorité</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom note */}
+          <div className="mt-12 text-gray-400 text-center">
+            <p className="text-sm">
+              🔒 Paiement sécurisé • Garantie satisfaction 30 jours • Support
+              client 24/7
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default LaunchSite;
