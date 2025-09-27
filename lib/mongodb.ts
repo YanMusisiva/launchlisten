@@ -3,7 +3,6 @@ import { MongoClient } from "mongodb";
 
 // 1️⃣ Déclarer global pour TypeScript
 declare global {
-  // eslint-disable-next-line no-var
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
