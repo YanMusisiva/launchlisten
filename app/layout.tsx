@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AsFindcountrylinks",
-  description: "Liens pour trouver des cadeaux par pays",
+  title: "Launchlisten - formation des langues",
+  description: "Apprenez les langues avec des audios adaptés à votre niveau.",
 };
 
 export default function RootLayout({

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
+import VideoPlayer from "../components/VideoPlayer";
 import {
   ArrowRight,
-  Play,
   Users,
   User,
   Mail,
@@ -11,25 +11,128 @@ import {
   Sparkles,
 } from "lucide-react";
 
+// --- DATA ---
+const videos = [
+  {
+    id: 1,
+    title: "Vidéo 1 : Introduction",
+    description: "Découvrez la méthode en avant-première",
+    src: "/videos/video1.mp4",
+  },
+  {
+    id: 2,
+    title: "Vidéo 2 : Les bases",
+    description: "Apprenez les fondamentaux essentiels",
+    src: "/videos/video2.mp4",
+  },
+  {
+    id: 3,
+    title: "Vidéo 3 : Mise en pratique",
+    description: "Passez à la pratique avec des cas concrets",
+    src: "/videos/video3.mp4",
+  },
+  {
+    id: 4,
+    title: "Vidéo 4 : Accélérateur",
+    description: "Boostez vos résultats avec nos astuces avancées",
+    src: "/videos/video4.mp4",
+  },
+];
+
+const offers = [
+  {
+    id: 1,
+    title: "Formation en Groupe",
+    description:
+      "Rejoignez une communauté d'apprenants motivés et progressez ensemble.",
+    price: "17$",
+    color: "from-blue-500 to-indigo-600",
+    icon: <Users className="w-12 h-12 text-white mb-4 mx-auto" />,
+    perks: ["Accès à vie", "Communauté", "Support"],
+    link: "https://chat.whatsapp.com/EXEMPLE_GROUPE1", // 🔗 groupe WhatsApp
+  },
+  {
+    id: 2,
+    title: "Formation Personnelle",
+    description:
+      "Un accompagnement 1-on-1 et sur-mesure pour atteindre vos objectifs.",
+    price: "Sur Devis",
+    color: "from-emerald-500 to-teal-600",
+    icon: <User className="w-12 h-12 text-white mb-4 mx-auto" />,
+    perks: ["1-on-1", "Personnalisé", "Priorité"],
+    badge: "POPULAIRE",
+    link: "https://mon-site.com/contact", // 🔗 site
+  },
+  {
+    id: 3,
+    title: "Pack Premium",
+    description: "Inclut toutes les vidéos, sessions live et bonus exclusifs.",
+    price: "49$",
+    color: "from-purple-500 to-pink-600",
+    icon: <Star className="w-12 h-12 text-white mb-4 mx-auto" />,
+    perks: ["Toutes les vidéos", "Bonus exclusifs", "Sessions live"],
+    link: "https://chat.whatsapp.com/EXEMPLE_GROUPE2", // 🔗 autre WhatsApp
+  },
+  {
+    id: 4,
+    title: "Masterclass VIP",
+    description: "Une expérience haut de gamme pour un apprentissage accéléré.",
+    price: "99$",
+    color: "from-orange-500 to-red-600",
+    icon: <Sparkles className="w-12 h-12 text-white mb-4 mx-auto" />,
+    perks: ["Coaching VIP", "Accès privé", "Suivi prioritaire"],
+    link: "https://mon-site.com/masterclass", // 🔗 site
+  },
+];
+
 const LaunchSite = () => {
   const [currentPage, setCurrentPage] = useState("email");
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
 
   const handleEmailSubmit = async () => {
     if (!email) return;
 
     setIsLoading(true);
-    // Simulation d'ajout à la newsletter
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitted(true);
-    setIsLoading(false);
 
-    // Redirection vers la page vidéo après 2 secondes
-    setTimeout(() => {
-      setCurrentPage("video");
-    }, 2000);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      // console.log("✅ Réponse API:", data);
+
+      if (!res.ok) {
+        // Erreur serveur ou MongoDB
+        alert(data.error || "Erreur serveur, veuillez réessayer.");
+        return;
+      }
+
+      if (data.message === "Déjà inscrit" || data.exists) {
+        setIsAlreadySubscribed(true);
+        setTimeout(() => {
+          setCurrentPage("video");
+        }, 1000);
+      } else if (data.message === "Email ajouté avec succès") {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setCurrentPage("video");
+        }, 2000);
+      } else {
+        // Cas inattendu
+        alert("Réponse inattendue du serveur.");
+      }
+    } catch (err) {
+      console.error("Erreur soumission email:", err);
+      alert("Erreur réseau, veuillez réessayer.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (currentPage === "email") {
@@ -51,7 +154,7 @@ const LaunchSite = () => {
 
         <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
           <div className="max-w-2xl mx-auto text-center">
-            {!isSubmitted ? (
+            {!isSubmitted && !isAlreadySubscribed ? (
               <>
                 {/* Header */}
                 <div className="mb-12">
@@ -59,15 +162,16 @@ const LaunchSite = () => {
                     Transformez
                   </h1>
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-                    Votre Passion en
+                    Votre vie relationnelle avec
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300">
                       {" "}
-                      Succès
+                      Les langues
                     </span>
                   </h2>
                   <p className="text-xl text-gray-200 max-w-lg mx-auto leading-relaxed">
-                    Découvrez les secrets des experts pour créer une carrière
-                    extraordinaire dans votre domaine de passion
+                    Découvrez les secrets pour apprendre les langues d&apos;une
+                    manière extraordinaire avec LGA( Languages for global
+                    africans)
                   </p>
                 </div>
 
@@ -117,7 +221,7 @@ const LaunchSite = () => {
                   </div>
                 </div>
               </>
-            ) : (
+            ) : isSubmitted ? (
               <div className="text-center py-20">
                 <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
                 <h2 className="text-4xl font-bold text-white mb-4">
@@ -130,7 +234,14 @@ const LaunchSite = () => {
                   Redirection en cours...
                 </div>
               </div>
-            )}
+            ) : isAlreadySubscribed ? (
+              // 👉 Cas déjà inscrit → redirection discrète
+              <div className="text-center py-20">
+                <p className="text-xl text-gray-200 mb-8">
+                  Vous êtes déjà inscrit(e). Redirection en cours...
+                </p>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -139,107 +250,93 @@ const LaunchSite = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute inset-0 bg-black opacity-40"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
-              Votre Formation Vous Attend
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Regardez cette vidéo exclusive et choisissez votre parcours vers
-              le succès
-            </p>
-          </div>
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
+            Votre Formation Vous Attend
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Regardez ces vidéos exclusives et juste en dessous choisissez votre
+            parcours
+          </p>
+        </div>
 
-          {/* Video Container */}
-          <div className="mb-12 relative group">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-1 rounded-3xl shadow-2xl">
-              <div className="bg-black rounded-3xl overflow-hidden">
-                <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center relative">
-                  <Play className="w-20 h-20 text-white opacity-80 group-hover:opacity-100 transition-opacity cursor-pointer" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <p className="absolute bottom-4 left-4 text-white text-sm opacity-75">
-                    Cliquez pour voir votre formation exclusive
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Videos */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16 w-full max-w-5xl">
+          {videos.map((video) => (
+            <VideoPlayer
+              key={video.id}
+              src={video.src}
+              title={video.title}
+              description={video.description}
+            />
+          ))}
+        </div>
 
-          {/* CTA Buttons */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Formation Groupe */}
-            <div className="group relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
-              <div className="relative bg-gradient-to-br from-blue-500 to-indigo-600 p-8 rounded-3xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
-                <Users className="w-12 h-12 text-white mb-4 mx-auto" />
+        {/* Offers */}
+        <div className="grid md:grid-cols-2 gap-8 w-full max-w-5xl">
+          {offers.map((offer) => (
+            <div key={offer.id} className="group relative">
+              <div
+                className={`absolute -inset-1 bg-gradient-to-r ${offer.color} rounded-3xl blur opacity-75 group-hover:opacity-100 transition`}
+              ></div>
+              <div
+                className={`relative bg-gradient-to-br ${offer.color} p-8 rounded-3xl shadow-2xl transform group-hover:scale-105 transition-all duration-300`}
+              >
+                {offer.badge && (
+                  <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                    {offer.badge}
+                  </div>
+                )}
+                {offer.icon}
                 <h3 className="text-2xl font-bold text-white mb-4">
-                  Formation en Groupe
+                  {offer.title}
                 </h3>
-                <p className="text-blue-100 mb-6 leading-relaxed">
-                  Rejoignez notre communauté d'apprenants motivés et bénéficiez
-                  de l'entraide collective pour maximiser votre réussite.
+                <p className="text-white/80 mb-6 leading-relaxed">
+                  {offer.description}
                 </p>
                 <div className="text-4xl font-extrabold text-white mb-6">
-                  17<span className="text-2xl">$</span>
+                  {offer.price}
                 </div>
-                <button className="w-full bg-white text-indigo-600 font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg">
-                  Rejoindre le Groupe
+                <button className="w-full bg-white text-black font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg">
+                  <a
+                    href={offer.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Choisir {offer.title}
+                  </a>
                 </button>
-                <div className="mt-4 flex items-center justify-center space-x-4 text-blue-100 text-sm">
-                  <span>✓ Accès à vie</span>
-                  <span>✓ Communauté</span>
-                  <span>✓ Support</span>
+
+                <div className="mt-4 flex items-center justify-center space-x-4 text-white/80 text-sm">
+                  {offer.perks.map((perk, i) => (
+                    <span key={i}>✓ {perk}</span>
+                  ))}
                 </div>
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Formation Personnelle */}
-            <div className="group relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
-              <div className="relative bg-gradient-to-br from-emerald-500 to-teal-600 p-8 rounded-3xl shadow-2xl transform group-hover:scale-105 transition-all duration-300">
-                <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                  POPULAIRE
-                </div>
-                <User className="w-12 h-12 text-white mb-4 mx-auto" />
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Formation Personnelle
-                </h3>
-                <p className="text-emerald-100 mb-6 leading-relaxed">
-                  Bénéficiez d'un accompagnement personnalisé et sur-mesure pour
-                  atteindre vos objectifs plus rapidement.
-                </p>
-                <div className="text-4xl font-extrabold text-white mb-2">
-                  Sur Devis
-                </div>
-                <div className="text-emerald-100 text-sm mb-6">
-                  Prix selon vos besoins
-                </div>
-                <button className="w-full bg-white text-teal-600 font-bold py-4 px-8 rounded-2xl hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg">
-                  Formation Personnelle
-                </button>
-                <div className="mt-4 flex items-center justify-center space-x-4 text-emerald-100 text-sm">
-                  <span>✓ 1-on-1</span>
-                  <span>✓ Personnalisé</span>
-                  <span>✓ Priorité</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom note */}
-          <div className="mt-12 text-gray-400 text-center">
-            <p className="text-sm">
-              🔒 Paiement sécurisé • Garantie satisfaction 30 jours • Support
-              client 24/7
-            </p>
-          </div>
+        {/* Footer */}
+        <div className="mt-12 text-gray-400 text-center">
+          <p className="text-sm">
+            🔒 Paiement sécurisé • Garantie satisfaction • Support client 24/7
+          </p>
+          <p>
+            Made by{" "}
+            <a
+              href="https://asikireportfolio.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-500"
+            >
+              John Asikire
+            </a>
+          </p>
         </div>
       </div>
     </div>
