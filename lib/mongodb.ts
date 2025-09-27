@@ -1,25 +1,30 @@
+// lib/mongodb.ts
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGODB_URI as string; // défini dans .env.local
-const options = {};
-
-let client;
-let clientPromise: Promise<MongoClient>;
-
-if (!process.env.MONGODB_URI) {
-  throw new Error("⚠️ Please add your Mongo URI to .env.local");
+// 1️⃣ Déclarer global pour TypeScript
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (process.env.NODE_ENV === "development") {
-  // Cache la connexion pendant le dev pour éviter les multiples instances
-  if (!(global as any)._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    (global as any)._mongoClientPromise = client.connect();
-  }
-  clientPromise = (global as any)._mongoClientPromise;
-} else {
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+// 2️⃣ Vérifier que l'URI existe dans .env.local
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  throw new Error(
+    "Please define the MONGODB_URI environment variable inside .env.local"
+  );
 }
+
+// 3️⃣ Client MongoDB
+let client: MongoClient;
+
+// 4️⃣ Connecter une seule fois (singleton)
+if (!global._mongoClientPromise) {
+  client = new MongoClient(uri);
+  global._mongoClientPromise = client.connect();
+}
+
+// 5️⃣ Exporter la promesse typée
+const clientPromise: Promise<MongoClient> = global._mongoClientPromise;
 
 export default clientPromise;
