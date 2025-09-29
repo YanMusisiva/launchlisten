@@ -16,72 +16,72 @@ const videos = [
   {
     id: 1,
     title: "Vidéo 1 : Introduction",
-    description: "Découvrez la méthode en avant-première",
+    description: "Découvrez nos offres (en anglais)",
     src: "/videos/video1.mp4",
   },
   {
     id: 2,
     title: "Vidéo 2 : Les bases",
-    description: "Apprenez les fondamentaux essentiels",
+    description: "Les secrets pour apprendre une nouvelle langue",
     src: "/videos/video2.mp4",
   },
   {
     id: 3,
-    title: "Vidéo 3 : Mise en pratique",
-    description: "Passez à la pratique avec des cas concrets",
+    title: "Vidéo 3 : En pratique",
+    description: "Ce que nous vous offrons réellement",
     src: "/videos/video3.mp4",
   },
-  {
-    id: 4,
-    title: "Vidéo 4 : Accélérateur",
-    description: "Boostez vos résultats avec nos astuces avancées",
-    src: "/videos/video4.mp4",
-  },
+  // {
+  //   id: 4,
+  //   title: "Vidéo 4 : Accélérateur",
+  //   description: "Boostez vos résultats avec nos astuces avancées",
+  //   src: "/videos/video4.mp4",
+  // },
 ];
 
 const offers = [
   {
     id: 1,
-    title: "Formation en Groupe",
+    title: "GROUPE GRATUIT - ANGLAIS",
     description:
       "Rejoignez une communauté d'apprenants motivés et progressez ensemble.",
-    price: "17$",
+    price: "0$",
     color: "from-blue-500 to-indigo-600",
     icon: <Users className="w-12 h-12 text-white mb-4 mx-auto" />,
     perks: ["Accès à vie", "Communauté", "Support"],
-    link: "https://chat.whatsapp.com/EXEMPLE_GROUPE1", // 🔗 groupe WhatsApp
+    link: "https://chat.whatsapp.com/GA54bbWLUXMFXU6WqlslwW?mode=ems_copy_t", // 🔗 groupe WhatsApp
   },
   {
     id: 2,
-    title: "Formation Personnelle",
-    description:
-      "Un accompagnement 1-on-1 et sur-mesure pour atteindre vos objectifs.",
-    price: "Sur Devis",
+    title: "GROUPE PREMIUM - ANGLAIS",
+    description: "Un accompagnement sur-mesure pour atteindre vos objectifs.",
+    price: "17$ / 2 mois",
     color: "from-emerald-500 to-teal-600",
     icon: <User className="w-12 h-12 text-white mb-4 mx-auto" />,
-    perks: ["1-on-1", "Personnalisé", "Priorité"],
+    perks: ["Débats", "suivi personnalisé", "Priorité"],
     badge: "POPULAIRE",
-    link: "https://mon-site.com/contact", // 🔗 site
+    link: "https://chat.whatsapp.com/IzfmoskpitV6Z2nhSIAIoJ?mode=ems_copy_t", // 🔗 site
   },
   {
     id: 3,
-    title: "Pack Premium",
-    description: "Inclut toutes les vidéos, sessions live et bonus exclusifs.",
-    price: "49$",
+    title: "GROUPE MULTILINGUE",
+    description:
+      "Exploration des basiques de plus de 10 langues. Inclut des appels avec des locuteurs de langues",
+    price: "39$ / an",
     color: "from-purple-500 to-pink-600",
     icon: <Star className="w-12 h-12 text-white mb-4 mx-auto" />,
-    perks: ["Toutes les vidéos", "Bonus exclusifs", "Sessions live"],
-    link: "https://chat.whatsapp.com/EXEMPLE_GROUPE2", // 🔗 autre WhatsApp
+    perks: ["Audios", "Bonus exclusifs", "Appels"],
+    link: "https://chat.whatsapp.com/GkwKPhiEgMkFT9IoXcT8NL?mode=ems_copy_t", // 🔗 autre WhatsApp
   },
   {
     id: 4,
-    title: "Masterclass VIP",
+    title: "PROGRAMME PRIVE - VIP",
     description: "Une expérience haut de gamme pour un apprentissage accéléré.",
-    price: "99$",
+    price: "Sur Devis",
     color: "from-orange-500 to-red-600",
     icon: <Sparkles className="w-12 h-12 text-white mb-4 mx-auto" />,
-    perks: ["Coaching VIP", "Accès privé", "Suivi prioritaire"],
-    link: "https://mon-site.com/masterclass", // 🔗 site
+    perks: ["Hors groupe", "1-on-1", "Suivi prioritaire"],
+    link: "https://listenmethod.vercel.app", // 🔗 site
   },
 ];
 
@@ -91,6 +91,7 @@ const LaunchSite = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
   const handleEmailSubmit = async () => {
     if (!email) return;
@@ -266,12 +267,15 @@ const LaunchSite = () => {
 
         {/* Videos */}
         <div className="grid md:grid-cols-2 gap-8 mb-16 w-full max-w-5xl">
-          {videos.map((video) => (
+          {videos.map((video, idx) => (
             <VideoPlayer
               key={video.id}
               src={video.src}
               title={video.title}
               description={video.description}
+              isPlaying={playingIndex === idx}
+              onPlay={() => setPlayingIndex(idx)}
+              onPause={() => setPlayingIndex(null)}
             />
           ))}
         </div>

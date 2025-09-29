@@ -5,6 +5,9 @@ type VideoPlayerProps = {
   src: string;
   title?: string;
   description?: string;
+  isPlaying: boolean;
+  onPlay: () => void;
+  onPause: () => void;
 };
 
 const formatTime = (seconds = 0) => {
@@ -18,17 +21,31 @@ const formatTime = (seconds = 0) => {
   return `${m}:${s}`;
 };
 
-const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
+const VideoPlayer = ({
+  src,
+  title,
+  description,
+  isPlaying,
+  onPlay,
+  onPause,
+}: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [showOverlay, setShowOverlay] = useState(true); // overlay = titre + bouton
+  const [showOverlay, setShowOverlay] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (isPlaying) {
+      video.play();
+      setShowOverlay(false);
+    } else {
+      video.pause();
+      setShowOverlay(true);
+    }
 
     const onLoaded = () => setDuration(video.duration || 0);
     const onTime = () => {
@@ -36,67 +53,35 @@ const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
       const dur = video.duration || 1;
       setProgress((video.currentTime / dur) * 100);
     };
-    const onPlay = () => {
-      setIsPlaying(true);
-      setShowOverlay(false); // dès que la lecture démarre, on cache l'overlay
-    };
-    const onPause = () => {
-      setIsPlaying(false);
-      setShowOverlay(true); // en pause on ré-affiche l'overlay
-    };
     const onEnd = () => {
-      setIsPlaying(false);
       setShowOverlay(true);
       setProgress(100);
       setCurrentTime(video.duration || 0);
+      onPause();
     };
 
     video.addEventListener("loadedmetadata", onLoaded);
     video.addEventListener("timeupdate", onTime);
-    video.addEventListener("play", onPlay);
-    video.addEventListener("pause", onPause);
     video.addEventListener("ended", onEnd);
 
     return () => {
       video.removeEventListener("loadedmetadata", onLoaded);
       video.removeEventListener("timeupdate", onTime);
-      video.removeEventListener("play", onPlay);
-      video.removeEventListener("pause", onPause);
       video.removeEventListener("ended", onEnd);
     };
-  }, []);
+  }, [isPlaying, onPause]);
 
-  const play = async () => {
-    const v = videoRef.current;
-    if (!v) return;
-    try {
-      await v.play();
-      // play event listener gère setIsPlaying & setShowOverlay
-    } catch (err) {
-      console.warn("Impossible de lancer la lecture:", err);
+  const handlePlayPause = async () => {
+    if (!isPlaying) {
+      onPlay();
+    } else {
+      onPause();
     }
   };
 
-  const pause = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.pause();
-    // pause event listener gère setIsPlaying & setShowOverlay
-  };
-
-  const togglePlay = async () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) await play();
-    else pause();
-  };
-
-  // Click sur la zone vidéo :
-  // - si en pause => on lance la lecture
-  // - si en lecture => on affiche/masque l'overlay (bouton + titre)
   const handleVideoClick = () => {
     if (!isPlaying) {
-      togglePlay();
+      onPlay();
     } else {
       setShowOverlay((s) => !s);
     }
@@ -104,24 +89,20 @@ const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
 
   return (
     <div className="bg-black rounded-2xl shadow-xl overflow-hidden relative">
-      {/* video : object-contain + max height pour selfie-friendly */}
       <video
         ref={videoRef}
         src={src}
         onClick={handleVideoClick}
+        onContextMenu={(e) => e.preventDefault()}
         className="w-full max-h-[70vh] object-contain bg-black"
         playsInline
       />
 
-      {/* overlay gradient (non-interactive pour laisser passer les clics) */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
-      {/* CONTROLS (pointer-events-none pour que le clic atteigne la video)
-          les éléments interactifs (bouton) auront pointer-events-auto */}
       <div className="absolute inset-0 flex flex-col justify-end p-4 pointer-events-none">
-        {/* titre + description : visibles seulement si overlay visible (avant lecture ou en pause) */}
         {showOverlay && !isPlaying && (
           <div className="mb-3 text-center">
             {title && <h3 className="text-white font-bold text-lg">{title}</h3>}
@@ -131,7 +112,6 @@ const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
           </div>
         )}
 
-        {/* barre de progression (readonly) */}
         <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden mb-2">
           <div
             className="h-full bg-blue-500 transition-all"
@@ -139,18 +119,16 @@ const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
           />
         </div>
 
-        {/* temps */}
         <div className="flex justify-end text-white text-xs mb-2">
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
 
-        {/* bouton Play/Pause : uniquement interactif si overlay visible */}
         {showOverlay && (
           <div className="w-full flex justify-center">
             <button
               onClick={(e) => {
-                e.stopPropagation(); // éviter que le click sur le bouton retriggere le click de la vidéo
-                togglePlay();
+                e.stopPropagation();
+                handlePlayPause();
               }}
               className="pointer-events-auto bg-white/20 hover:bg-white/30 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center mx-auto"
               aria-label={isPlaying ? "Pause" : "Play"}
@@ -169,3 +147,4 @@ const VideoPlayer = ({ src, title, description }: VideoPlayerProps) => {
 };
 
 export default VideoPlayer;
+// filepath: c:\web
