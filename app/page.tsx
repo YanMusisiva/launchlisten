@@ -17,7 +17,7 @@ const videos = [
     id: 1,
     title: "Vidéo 1 : Introduction",
     description: "Découvrez nos offres (en anglais)",
-    src: "/videos/video1.mp4",
+    src: "/videos/video4.mp4",
   },
   // {
   //   id: 2,
