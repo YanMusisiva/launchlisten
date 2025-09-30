@@ -289,7 +289,7 @@ const LaunchSite = () => {
             pdfs ainsi vous pourrez alors continuez la pratique avec les
             encadreurs dans le groupe. Choisissez le parcours qui correspond à
             vos objectifs et commencez votre aventure linguistique dès
-            aujourd'hui.
+            aujourd&apos;hui.
           </p>
         </div>
 
