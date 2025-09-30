@@ -257,7 +257,7 @@ const LaunchSite = () => {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
-            Votre Formation vous attend
+            Votre formation vous attend
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Regardez ces vidéos exclusives et juste en dessous choisissez votre
