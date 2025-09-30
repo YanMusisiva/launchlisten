@@ -27,16 +27,16 @@ const videos = [
   },
   {
     id: 3,
-    title: "Vidéo 3 : En pratique",
-    description: "Ce que nous vous offrons réellement",
+    title: "Vidéo 3 : Nos 4 principes",
+    description: "Boostez vos résultats avec nos astuces avancées",
     src: "/videos/video3.mp4",
   },
-  // {
-  //   id: 4,
-  //   title: "Vidéo 4 : Accélérateur",
-  //   description: "Boostez vos résultats avec nos astuces avancées",
-  //   src: "/videos/video4.mp4",
-  // },
+  {
+    id: 4,
+    title: "Vidéo 4 : En pratique",
+    description: "Ce que nous vous offrons réellement",
+    src: "/videos/video4.mp4",
+  },
 ];
 
 const offers = [
@@ -257,7 +257,7 @@ const LaunchSite = () => {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
-            Votre Formation Vous Attend
+            Votre Formation vous attend
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Regardez ces vidéos exclusives et juste en dessous choisissez votre
@@ -278,6 +278,19 @@ const LaunchSite = () => {
               onPause={() => setPlayingIndex(null)}
             />
           ))}
+        </div>
+
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-6">
+            Découvrez nos offres exclusives
+          </h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Après votre payement nous vous enverrons les cours audios et les
+            pdfs ainsi vous pourrez alors continuez la pratique avec les
+            encadreurs dans le groupe. Choisissez le parcours qui correspond à
+            vos objectifs et commencez votre aventure linguistique dès
+            aujourd'hui.
+          </p>
         </div>
 
         {/* Offers */}
