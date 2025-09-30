@@ -19,23 +19,23 @@ const videos = [
     description: "Découvrez nos offres (en anglais)",
     src: "/videos/video1.mp4",
   },
+  // {
+  //   id: 2,
+  //   title: "Vidéo 2 : Les bases",
+  //   description: "Les secrets pour apprendre une nouvelle langue",
+  //   src: "/videos/video2.mp4",
+  // },
   {
     id: 2,
-    title: "Vidéo 2 : Les bases",
-    description: "Les secrets pour apprendre une nouvelle langue",
+    title: "Vidéo 2 : Nos 4 principes",
+    description: "Boostez vos résultats avec nos astuces avancées",
     src: "/videos/video2.mp4",
   },
   {
     id: 3,
-    title: "Vidéo 3 : Nos 4 principes",
-    description: "Boostez vos résultats avec nos astuces avancées",
-    src: "/videos/video3.mp4",
-  },
-  {
-    id: 4,
-    title: "Vidéo 4 : En pratique",
+    title: "Vidéo 3 : En pratique",
     description: "Ce que nous vous offrons réellement",
-    src: "/videos/video4.mp4",
+    src: "/videos/video3.mp4",
   },
 ];
 
