@@ -171,8 +171,7 @@ const LaunchSite = () => {
                   </h2>
                   <p className="text-xl text-gray-200 max-w-lg mx-auto leading-relaxed">
                     Découvrez les secrets pour apprendre les langues d&apos;une
-                    manière extraordinaire avec LGA( Languages for global
-                    africans)
+                    manière extraordinaire avec GL( Global Languages)
                   </p>
                 </div>
 
@@ -256,8 +255,9 @@ const LaunchSite = () => {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
-            Votre formation vous attend
+          <h1 className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 mb-6">
+            Vous serez capable de parler dans les premiers 30 jours de la
+            formation.
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Regardez ces vidéos exclusives et juste en dessous choisissez votre
