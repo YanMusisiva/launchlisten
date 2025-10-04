@@ -49,7 +49,7 @@ const offers = [
     color: "from-blue-500 to-indigo-600",
     icon: <Users className="w-12 h-12 text-white mb-4 mx-auto" />,
     perks: ["Accès à vie", "Communauté", "Support"],
-    link: "https://chat.whatsapp.com/GA54bbWLUXMFXU6WqlslwW?mode=ems_copy_t", // 🔗 groupe WhatsApp
+    link: "https://chat.whatsapp.com/DRm6Of4j9DgEjabA7inynF?mode=ems_copy_t", // 🔗 groupe WhatsApp
   },
   {
     id: 2,
